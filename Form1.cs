@@ -12,6 +12,8 @@ namespace WindowsFormsApp2
 {
     public partial class Form1 : Form
     {
+        int openBracketCounter = 0;
+        int closeBracketCounter = 0;
         public Form1()
         {
             InitializeComponent();
@@ -69,12 +71,23 @@ namespace WindowsFormsApp2
 
         private void openBracket_Click(object sender, EventArgs e)
         {
+            openBracketCounter++;
             textBox1.Text += openBracket.Text;
+            if (closeBracketCounter < openBracketCounter) closeBracket.Enabled = true;
         }
 
         private void closeBracket_Click(object sender, EventArgs e)
         {
             textBox1.Text += closeBracket.Text;
+            closeBracketCounter++;
+            if (closeBracketCounter < openBracketCounter)
+            {
+                closeBracket.Enabled = true;
+            }
+            else
+            {
+                closeBracket.Enabled = false;
+            }
         }
 
         private void plus_Click(object sender, EventArgs e)
@@ -104,8 +117,15 @@ namespace WindowsFormsApp2
 
         private void equals_Click(object sender, EventArgs e)
         {
+            if (closeBracketCounter < openBracketCounter)
+            {
+                for (int i = 0; i < openBracketCounter - closeBracketCounter; i++)
+                {
+                    textBox1.Text += closeBracket.Text;
+                }
+            }
             string result = Convert.ToString(PRNCalc.Calculate(textBox1.Text));
-            textBox1.Text = result;
+            textBox1.Text = textBox1.Text + " = " + result;
         }
     }
 }
