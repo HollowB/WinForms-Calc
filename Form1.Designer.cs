@@ -170,6 +170,7 @@
             // 
             // closeBracket
             // 
+            this.closeBracket.Enabled = false;
             this.closeBracket.Location = new System.Drawing.Point(101, 68);
             this.closeBracket.Name = "closeBracket";
             this.closeBracket.Size = new System.Drawing.Size(55, 55);
